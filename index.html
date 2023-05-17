@@ -1,17 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Surprise!</title>
-  <script>
-    // The surprise function to display a surprise message
-    function surprise() {
-      alert("Surprise! You're an amazing friend!");
+  <title>Somali Nervous System Game</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
     }
-  </script>
+    #game-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff5500;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body onload="surprise()">
-  <h1>Welcome, Friend!</h1>
-  <p>This website has a special surprise just for you.</p>
-  <p>Enjoy the moment!</p>
+<body>
+  <div id="game-container">
+    <h1>Somali Nervous System Game</h1>
+    <p>Click as fast as you can within 10 seconds to win!</p>
+    <button onclick="startGame()" disabled>Start Game</button>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    var score = 0;
+    var isGameRunning = false;
+
+    function startGame() {
+      if (!isGameRunning) {
+        score = 0;
+        isGameRunning = true;
+        document.getElementById('message').textContent = '';
+        document.getElementById('game-container').style.backgroundColor = '#f1f1f1';
+        document.getElementById('game-container').style.pointerEvents = 'none';
+        document.getElementById('startButton').disabled = true;
+
+        setTimeout(function() {
+          isGameRunning = false;
+          document.getElementById('game-container').style.backgroundColor = '#fff';
+          document.getElementById('game-container').style.pointerEvents = 'auto';
+          document.getElementById('startButton').disabled = false;
+
+          if (score > 20) {
+            document.getElementById('message').textContent = 'Winner winner, you eat grass for dinner!';
+          } else {
+            document.getElementById('message').textContent = 'Oops! You didn\'t click fast enough.';
+          }
+        }, 10000);
+      }
+    }
+
+    document.getElementById('game-container').addEventListener('click', function() {
+      if (isGameRunning) {
+        score++;
+        document.getElementById('message').textContent = 'Score: ' + score;
+      }
+    });
+
+    // Enable the Start Game button after a delay
+    setTimeout(function() {
+      document.getElementById('startButton').disabled = false;
+    }, 3000);
+  </script>
 </body>
 </html>
